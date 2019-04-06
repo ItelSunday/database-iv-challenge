@@ -7,6 +7,37 @@
 - seeding.
 - knex.
 
+3has categories:
+dishes: has recipes
+dishes
+ingredients
+recipes
+
+
+{key: value}?
+dish : recipe
+    : recipe
+    : recipe
+    : recipe
+    one to many rel
+
+table 1 dishes;
+id1: pizza
+
+table 2 recipes;
+id1 : hawaiin : dishId1
+id2 : margherita : dishId1
+
+the joined table would look like:
+pizza(id1): (dishId1) (recipeId1) hawaiin : 
+cheese (Ingredientid1)
+pineapple (Ingredientid2)
+
+pizza(id1): (dishId1) (recipeId2) margarheta
+cheese (Ingredientid1)
+pineapple (Ingredientid2)
+
+
 ## Assignment
 
 Design the **data model** for a _recipe book_ application, then use `Knex migrations and seeding` functionality to build a `SQLite3` database based on the model and seed it with test data.
@@ -15,11 +46,41 @@ The requirements for the system, as stated by the client are:
 
 - have a way to manage dishes. A **dish** is something the client wants to cook, like _pizza_ or _tacos_.
 - have a way to manage recipes. A **dish** can have different recipes for tacos, like _tex-mex_ or _granny's_. A **recipe** belongs only to one **dish**.
+
+dish : [...recipes]
+
+recipe :ingredient
+    :ingredient
+    :ingredient
+    :ingredient
+    one to many rel
+
+table 3 ingredients:
+ingredientName: " gram of butter"(string), quantity(number)
+="{quantity} "gram of butter"
+or 
+ingredientName: "butter"(string), unit: "gram"(string) quantity(number)
+="{quantity} {unit} of butter"
+
+table 4 recipes used in ingrdients
+multiple infredients can be used in multiple recipes
+uses 
+Foreign key: ingredientID, recipeId
+Local: id, quantity, unit
+many:many
+
+table 
+
 - have a way to manage ingredients.
 - a **recipe** could have more than one **ingredient** and the same **ingredient** can be used in multiple recipes. Examples are _"cup of corn flour"_ or _"gram of butter"_.
 - when saving the ingredients for a **recipe** capture the quantity required for that **ingredient** as a floating number.
 - have a way to save instructions for cooking a recipe.
+
+Router/DB operations:
+CRUD on dishes/recipes/ingredients/ingredient-by-recipe
 - have a way to pick a **dish** and a **recipe** and get a _shopping list_ with all the ingredients, and quantity of each, needed to cook the **dish**.
+(cookbook/dish/:id/recipe/go-shopping endpoint)
+
 
 In addition to the `migrations` and `seeding` scripts, write a data access file that **exports** an object with the following functions:
 
